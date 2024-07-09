@@ -1,0 +1,10 @@
+RewriteEngine on
+
+RewriteBase /MVC-PHP/public
+
+ReWriteCond %{REQUEST_FILENAME} !-d
+ReWriteCond %{REQUEST_FILENAME} !-f
+
+ReWriteRule ^(.+)$ index.php/$1 [L,QSA]
+
+

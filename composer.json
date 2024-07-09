@@ -1,0 +1,15 @@
+{
+    "name": "admin/mvc-php",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Viet Hoang",
+            "email": "noneedforlife.0612@gmail.com"
+        }
+    ],
+    "require": {}
+}
