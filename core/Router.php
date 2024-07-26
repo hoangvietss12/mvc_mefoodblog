@@ -12,6 +12,7 @@ class Router {
 
     public function resolve() {
         $path = $this->request->getPath();
+
         
         if($path !== "/") {
             $path_arr = explode('/', $path);
@@ -22,11 +23,11 @@ class Router {
             }else {
                 $this->method = 'index';
             }
-            // var_dump($path_arr);
         }else {
             $this->controller_name = 'HomeController';
             $this->method = 'index';
         }
+        
         // Định nghĩa namespace
         $controller_namespace = 'app\\controllers\\' . $this->controller_name;
         $method = $this->method;

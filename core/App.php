@@ -1,9 +1,6 @@
 <?php
 namespace app\core;
-
 class App{
-    private $_controller = 'home';
-    private $_action = 'index';
     public Router $router;
     public Request $request;
 
