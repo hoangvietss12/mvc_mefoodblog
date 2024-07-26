@@ -15,15 +15,15 @@
     <link href="https://fonts.googleapis.com/css?family=Unna:400,700&display=swap" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="img/favicon32x32.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/mvc_mefoodblog/public/img/favicon32x32.png" type="image/x-icon">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="/mvc_mefoodblog/public/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/mvc_mefoodblog/public/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/mvc_mefoodblog/public/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/mvc_mefoodblog/public/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/mvc_mefoodblog/public/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/mvc_mefoodblog/public/css/style.css?v=<?php echo time(); ?>" type="text/css">
 </head>
 
 <body>
@@ -36,16 +36,16 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="./index.html"><img src="img/humberger/logo.png" alt=""></a>
+            <a href="<?php echo _WEB_ROOT.'/'; ?>"><img src="/mvc_mefoodblog/public/img/humberger/logo.png" alt=""></a>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li><a href="./index.html">Trang chủ</a></li>
+                <li><a href="<?php echo _WEB_ROOT.'/'; ?>">Trang chủ</a></li>
                 <li><a href="#">Công thức</a></li>
                 <li><a href="#">Thực đơn</a></li>
                 <li><a href="#">Món ăn vặt</a></li>
-                <li><a href="./about.html">Về chúng tôi</a></li>
-                <li><a href="./contact.html">Liên hệ</a></li>
+                <li><a href="<?php echo _WEB_ROOT.'/home/about'; ?>">Về chúng tôi</a></li>
+                <li><a href="<?php echo _WEB_ROOT.'/home/contact'; ?>">Liên hệ</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -97,12 +97,12 @@
                     <div class="col-lg-8 col-md-10 order-md-2 order-3">
                         <nav class="header__menu">
                             <ul>
-                                <li class="active"><a href="./index.html">Trang chủ</a></li>
+                                <li class="active"><a href="<?php echo _WEB_ROOT.'/'; ?>">Trang chủ</a></li>
                                 <li><a href="#">Công thức</a></li>
                                 <li><a href="#">Thực đơn</a></li>
                                 <li><a href="#">Món ăn vặt</a></li>
-                                <li><a href="./about.html">Về chúng tôi</a></li>
-                                <li><a href="./contact.html">Liên hệ</a></li>
+                                <li><a href="<?php echo _WEB_ROOT.'/home/about'; ?>">Giới thiệu</a></li>
+                                <li><a href="<?php echo _WEB_ROOT.'/home/contact'; ?>">Liên hệ</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -117,13 +117,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3">
-                    <div class="header__btn">
-                        <a href="./signin.html" class="primary-btn">Đăng nhập</a>
-                    </div>
+                    <?php if(!empty($_COOKIE['token'])) :?>
+                        <div class="header__btn d-flex align-items-center flex-column text-center">
+                            <p><?php echo $data->user_name; ?></p>
+                            <a href="<?php echo _WEB_ROOT.'/home/logout'; ?>" class="primary-btn" style="width: 150px;">Đăng xuất</a>
+                        </div>
+                    <?php else : ?>
+                        <div class="header__btn d-flex align-items-center flex-column text-center">
+                            <div>
+                                <a href="<?php echo _WEB_ROOT.'/login'; ?>" class="primary-btn" style="width: 150px;">Đăng nhập</a>
+                            </div>
+                            <div class="mt-2">
+                                <a href="<?php echo _WEB_ROOT.'/register'; ?>" class="primary-btn" style="width: 150px;">Đăng ký</a>
+                            </div>
+                        </div>
+                    <?php endif;?>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="<?php echo _WEB_ROOT.'/'; ?>"><img src="/mvc_mefoodblog/public/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3">

@@ -20,14 +20,14 @@ include_once (_DIR_ROOT . '/views/layouts/header.php');
             <div class="row">
                 <div class="col-lg-6">
                     <div class="about__pic__item__large">
-                        <img src="img/about/about-1.jpg" alt="">
+                        <img src="/mvc_mefoodblog/public/img/about/about-1.jpg" alt="">
                     </div>
                     <div class="about__pic">
                         <div class="about__pic__item">
-                            <img src="img/about/about-2.jpg" alt="">
+                            <img src="/mvc_mefoodblog/public/img/about/about-2.jpg" alt="">
                         </div>
                         <div class="about__pic__item">
-                            <img src="img/about/about-3.jpg" alt="">
+                            <img src="/mvc_mefoodblog/public/img/about/about-3.jpg" alt="">
                         </div>
                     </div>
                 </div>

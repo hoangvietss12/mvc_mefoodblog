@@ -17,9 +17,20 @@
                                     <a href="#" class="google"><i class="fa fa-google"></i></a>
                                 </div> -->
                         <!-- <div class="divide">or</div> -->
-                        <form action="#">
-                            <input type="text" placeholder="Email*">
-                            <input type="text" placeholder="Mật khẩu">
+                        <form action="<?php echo _WEB_ROOT . '/login/signin'; ?>" method="POST">
+                            <div class="form-group">
+                                <input type="text" placeholder="Email" name="email" value="<?php echo $email ?? ''; ?>">
+                                <span class="text-danger">
+                                    <?php echo $errors['email'] ?? ''; ?>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Mật khẩu" name="password"
+                                    value="<?php echo $password ?? ''; ?>">
+                                <span class="text-danger">
+                                    <?php echo $errors['password'] ?? ''; ?>
+                                </span>
+                            </div>
                             <button type="submit" class="site-btn">Đăng nhập</button>
                         </form>
                     </div>
@@ -27,6 +38,11 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <?php
+    include_once (_DIR_ROOT . '/views/components/modal.php');
+    ?>
 </div>
 <!-- Sign In Section End -->
 

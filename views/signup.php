@@ -1,5 +1,5 @@
 <?php
-    include_once (_DIR_ROOT . '/views/layouts/header.php');
+include_once (_DIR_ROOT . '/views/layouts/header.php');
 ?>
 
 <!-- Sign In Section Begin -->
@@ -17,27 +17,68 @@
                                     <a href="#" class="google"><i class="fa fa-google"></i></a>
                                 </div> -->
                         <!-- <div class="divide">or</div> -->
-                        <form action="#">
-                            <input type="text" placeholder="User Name*">
-                            <input type="text" placeholder="Password">
-                            <input type="text" placeholder="Confirm Password">
-                            <input type="text" placeholder="Email Address">
-                            <input type="text" placeholder="Full Name">
+                        <form action="<?php echo _WEB_ROOT . '/register/signup'; ?>" method="POST">
+                            <div class="form-group">
+                                <input type="text" placeholder="Họ và tên" name="fullname"
+                                    value="<?php echo $fullname ?? ''; ?>">
+                                <span class="text-danger">
+                                    <?php echo $errors['fullname'] ?? ''; ?>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Tên đăng nhập" name="username"
+                                    value="<?php echo $username ?? ''; ?>">
+                                <span class="text-danger">
+                                    <?php echo $errors['username'] ?? ''; ?>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Email" name="email" value="<?php echo $email ?? ''; ?>">
+                                <span class="text-danger">
+                                    <?php echo $errors['email'] ?? ''; ?>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Mật khẩu" name="password"
+                                    value="<?php echo $password ?? ''; ?>">
+                                <span class="text-danger">
+                                    <?php echo $errors['password'] ?? ''; ?>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Nhập lại mật khẩu" name="confirm_password">
+                                <span class="text-danger">
+                                    <?php echo $errors['confirm_password'] ?? ''; ?>
+                                </span>
+                            </div>
                             <label for="sign-agree-check">
-                                I agree to the terms & conditions
-                                <input type="checkbox" id="sign-agree-check">
+                                Tôi đồng ý với điều khoản và chính sách
+                                <input type="checkbox" id="sign-agree-check" required>
                                 <span class="checkmark"></span>
                             </label>
-                            <button type="submit" class="site-btn">Register Now</button>
+                            <button type="submit" class="site-btn">Đăng ký</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <?php
+    include_once (_DIR_ROOT . '/views/components/modal.php');
+    ?>
 </div>
 <!-- Sign In Section End -->
 
 <?php
-    include_once (_DIR_ROOT . '/views/layouts/footer.php');
+include_once (_DIR_ROOT . '/views/layouts/footer.php');
 ?>
+
+<?php if(isset($message)): ?>
+    <script>
+        $(document).ready(function() {
+            $('#errorModal').modal('show');
+        });
+    </script>
+<?php endif; ?>
