@@ -38,7 +38,7 @@ class Controller{
                 'user_fullname' => $data['name'],
                 'user_name' => $data['username'],
                 'user_email' => $data['email'],
-                'user_avatar' => $data['profile_avatar']
+                'user_avatar' => $this->createAvatarUrl($data['profile_avatar'])
             )
         ];
 
@@ -62,5 +62,18 @@ class Controller{
             header('Location: '._WEB_ROOT.'/login');
             exit();
         }
+    }
+
+    private function createAvatarUrl($avatar) {
+        global $bucket;
+        if (isset($bucket)) {
+            $object = $bucket->object($avatar);
+
+            if ($object->exists()) {
+                return $object->signedUrl(new \DateTime('tomorrow'));
+            }
+        }
+
+        return null;
     }
 }

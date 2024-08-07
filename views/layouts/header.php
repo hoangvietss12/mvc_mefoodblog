@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="/mvc_mefoodblog/public/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/mvc_mefoodblog/public/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/mvc_mefoodblog/public/css/style.css?v=<?php echo time(); ?>" type="text/css">
+    <link rel="stylesheet" href="/mvc_mefoodblog/public/css/responsive.css?v=<?php echo time(); ?>" type="text/css">
 </head>
 
 <body>
@@ -43,7 +44,6 @@
                 <li><a href="<?php echo _WEB_ROOT.'/'; ?>">Trang chủ</a></li>
                 <li><a href="#">Công thức</a></li>
                 <li><a href="#">Thực đơn</a></li>
-                <li><a href="#">Món ăn vặt</a></li>
                 <li><a href="<?php echo _WEB_ROOT.'/home/about'; ?>">Về chúng tôi</a></li>
                 <li><a href="<?php echo _WEB_ROOT.'/home/contact'; ?>">Liên hệ</a></li>
             </ul>
@@ -100,7 +100,6 @@
                                 <li class="active"><a href="<?php echo _WEB_ROOT.'/'; ?>">Trang chủ</a></li>
                                 <li><a href="#">Công thức</a></li>
                                 <li><a href="#">Thực đơn</a></li>
-                                <li><a href="#">Món ăn vặt</a></li>
                                 <li><a href="<?php echo _WEB_ROOT.'/home/about'; ?>">Giới thiệu</a></li>
                                 <li><a href="<?php echo _WEB_ROOT.'/home/contact'; ?>">Liên hệ</a></li>
                             </ul>
@@ -119,7 +118,15 @@
                 <div class="col-lg-3 col-md-3">
                     <?php if(!empty($_COOKIE['token'])) :?>
                         <div class="header__btn d-flex align-items-center flex-column text-center">
-                            <p><?php echo $data->user_name; ?></p>
+                            <div class="header__user-img mb-2">
+                                <?php if($data->user_avatar === null): ?>
+                                    <img src="/mvc_mefoodblog/public/img/avatar.jpg" width="100px"/>
+                                <?php else : ?>
+                                    <img src="<?php echo $data->user_avatar; ?>" />
+                                <?php endif; ?>
+                            </div>
+                            <p>@<?php echo $data->user_name; ?></p>
+                            <a href="<?php echo _WEB_ROOT.'/profile'; ?>" class="primary-btn mb-2" style="width: 200px;">Quản lý tài khoản</a>
                             <a href="<?php echo _WEB_ROOT.'/home/logout'; ?>" class="primary-btn" style="width: 150px;">Đăng xuất</a>
                         </div>
                     <?php else : ?>

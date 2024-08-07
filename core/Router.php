@@ -19,7 +19,13 @@ class Router {
 
             $this->controller_name = ucfirst($path_arr[1]).'Controller';
             if(count($path_arr) > 2) {
-                $this->method = $path_arr[2];
+                if(strpos($path_arr[2], '-')) {
+                    $action_name = str_replace('-', ' ', $path_arr[2]);
+                    $action_name = str_replace(' ', '', ucwords($action_name));
+                    $action_name = lcfirst($action_name);
+                }
+
+                $this->method = $action_name ?? $path_arr[2];
             }else {
                 $this->method = 'index';
             }

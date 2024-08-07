@@ -22,4 +22,11 @@ class UserModel extends Model {
     public function getLastInsertId() {
         return $this->db->lastId();
     }
+
+    public function updateUserById($id, $data) {
+        $status = $this->db->table('users')->where('id', '=', $id)->update($data);
+        $this->db->resetQuery();
+
+        return $status;
+    }
 }

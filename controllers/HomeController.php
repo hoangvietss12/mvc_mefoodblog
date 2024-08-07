@@ -8,7 +8,7 @@ class HomeController extends Controller{
     }
     public function index() {
         $data = [];
-        
+
         if(isset($_COOKIE['token'])) {
             $data = $this->authenticateJWT();
         }

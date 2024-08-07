@@ -75,4 +75,18 @@
         autoplay: true
     });
 
+    // Update avatar
+    $('#avatar').on('change', function() {
+        var fileName = $(this).val().split('\\').pop();
+        if (fileName) {
+            $('.profile__avatar-btn').text(fileName);
+        } else {
+            $('.profile__avatar-btn').text('Đổi avatar');
+        }
+    });
+
+    $('#avatar').change(function() {
+        $('#avatarForm').submit();
+    });
+
 })(jQuery);
