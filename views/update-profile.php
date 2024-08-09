@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Unna:400,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="/mvc_mefoodblog/public/img/favicon32x32.png" type="image/x-icon">
@@ -25,6 +26,7 @@
     <link rel="stylesheet" href="/mvc_mefoodblog/public/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/mvc_mefoodblog/public/css/style.css?v=<?php echo time(); ?>" type="text/css">
     <link rel="stylesheet" href="/mvc_mefoodblog/public/css/responsive.css?v=<?php echo time(); ?>" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
 </head>
 
 <body>
@@ -37,15 +39,16 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="<?php echo _WEB_ROOT.'/'; ?>"><img src="/mvc_mefoodblog/public/img/humberger/logo.png" alt=""></a>
+            <a href="<?php echo _WEB_ROOT . '/'; ?>"><img src="/mvc_mefoodblog/public/img/humberger/logo.png"
+                    alt=""></a>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li><a href="<?php echo _WEB_ROOT.'/'; ?>">Trang chủ</a></li>
+                <li><a href="<?php echo _WEB_ROOT . '/'; ?>">Trang chủ</a></li>
                 <li><a href="#">Công thức</a></li>
                 <li><a href="#">Thực đơn</a></li>
-                <li><a href="<?php echo _WEB_ROOT.'/home/about'; ?>">Về chúng tôi</a></li>
-                <li><a href="<?php echo _WEB_ROOT.'/home/contact'; ?>">Liên hệ</a></li>
+                <li><a href="<?php echo _WEB_ROOT . '/home/about'; ?>">Về chúng tôi</a></li>
+                <li><a href="<?php echo _WEB_ROOT . '/home/contact'; ?>">Liên hệ</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -97,11 +100,11 @@
                     <div class="col-lg-8 col-md-10 order-md-2 order-3">
                         <nav class="header__menu">
                             <ul>
-                                <li class="active"><a href="<?php echo _WEB_ROOT.'/'; ?>">Trang chủ</a></li>
+                                <li class="active"><a href="<?php echo _WEB_ROOT . '/'; ?>">Trang chủ</a></li>
                                 <li><a href="#">Công thức</a></li>
                                 <li><a href="#">Thực đơn</a></li>
-                                <li><a href="<?php echo _WEB_ROOT.'/home/about'; ?>">Giới thiệu</a></li>
-                                <li><a href="<?php echo _WEB_ROOT.'/home/contact'; ?>">Liên hệ</a></li>
+                                <li><a href="<?php echo _WEB_ROOT . '/home/about'; ?>">Giới thiệu</a></li>
+                                <li><a href="<?php echo _WEB_ROOT . '/home/contact'; ?>">Liên hệ</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -113,48 +116,50 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-3">
-                    <?php if(!empty($_COOKIE['token'])) :?>
-                        <div class="header__btn d-flex align-items-center flex-column text-center">
-                            <div class="header__user-img mb-2">
-                                <?php if($data->user_avatar === null): ?>
-                                    <img src="/mvc_mefoodblog/public/img/avatar.jpg" width="100px"/>
-                                <?php else : ?>
-                                    <img src="<?php echo $data->user_avatar; ?>" width="100px"/>
-                                <?php endif; ?>
+    </header>
+    <!-- Header Section End -->
+
+    <div class="container">
+        <div class="tab__profile">
+            <div class="profile__warp">
+                <div class="profile__content">
+                    <h2 class="profile__title mb-3">Cập nhật thông tin tài khoản</h2>
+                    <div class="profile__form bg-white">
+                        <div class="tab-content">
+                            <div class="signin__form__text">
+                                <form action="<?php echo _WEB_ROOT . '/profile/update-information'; ?>" method="POST">
+                                    <div class="form-group">
+                                        <label for="fullname" class="m-0 p-0 font-weight-bold mb-2">Họ và tên:</label>
+                                        <input type="text" placeholder="Họ và tên" name="fullname"
+                                            value="<?php echo $data->user_fullname ?? ''; ?>">
+                                        <span class="text-danger">
+                                            <?php echo $errors['fullname'] ?? ''; ?>
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="username" class="m-0 p-0 font-weight-bold mb-2">Tên đăng nhập:</label>
+                                        <input type="text" placeholder="Tên đăng nhập" name="username"
+                                            value="<?php echo $data->user_name ?? ''; ?>">
+                                        <span class="text-danger">
+                                            <?php echo $errors['username'] ?? ''; ?>
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="m-0 p-0 font-weight-bold mb-2">Email:</label>
+                                        <input type="text" placeholder="Email" name="email" class="bg-secondary"
+                                            value="<?php echo $data->user_email ?? ''; ?>" disabled>
+                                    </div>
+                                    <button type="submit" class="site-btn">Lưu thông tin</button>
+                                </form>
+                                <a class="primary-btn mt-3" href="<?php echo _WEB_ROOT . '/profile'; ?>">Quay lại</a>
                             </div>
-                            <p>@<?php echo $data->user_name; ?></p>
-                            <a href="<?php echo _WEB_ROOT.'/profile'; ?>" class="primary-btn mb-2" style="width: 200px;">Quản lý tài khoản</a>
-                            <a href="<?php echo _WEB_ROOT.'/home/logout'; ?>" class="primary-btn" style="width: 150px;">Đăng xuất</a>
                         </div>
-                    <?php else : ?>
-                        <div class="header__btn d-flex align-items-center flex-column text-center">
-                            <div>
-                                <a href="<?php echo _WEB_ROOT.'/login'; ?>" class="primary-btn" style="width: 150px;">Đăng nhập</a>
-                            </div>
-                            <div class="mt-2">
-                                <a href="<?php echo _WEB_ROOT.'/register'; ?>" class="primary-btn" style="width: 150px;">Đăng ký</a>
-                            </div>
-                        </div>
-                    <?php endif;?>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="header__logo">
-                        <a href="<?php echo _WEB_ROOT.'/'; ?>"><img src="/mvc_mefoodblog/public/img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="header__social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-youtube-play"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-envelope-o"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
-    <!-- Header Section End -->
+    </div>
+
+    <?php
+    include_once (_DIR_ROOT . '/views/layouts/footer.php');
+    ?>

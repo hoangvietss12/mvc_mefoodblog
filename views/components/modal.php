@@ -17,3 +17,11 @@
         </div>
     </div>
 </div>
+
+<?php if(isset($message)): ?>
+    <script>
+        $(document).ready(function() {
+            $('#errorModal').modal('show');
+        });
+    </script>
+<?php endif; ?>

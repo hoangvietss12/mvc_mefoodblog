@@ -3160,3 +3160,12 @@ ol {
 #tabProfileContent .form__posts #editor {
 	height: 200px;
 }
+
+/* update profile */
+.tab__profile .profile__content {
+	max-width: 640px;
+    text-align: center;
+	margin: auto;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}

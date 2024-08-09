@@ -74,11 +74,3 @@ include_once (_DIR_ROOT . '/views/layouts/header.php');
 <?php
 include_once (_DIR_ROOT . '/views/layouts/footer.php');
 ?>
-
-<?php if(isset($message)): ?>
-    <script>
-        $(document).ready(function() {
-            $('#errorModal').modal('show');
-        });
-    </script>
-<?php endif; ?>

@@ -7,6 +7,7 @@ use app\core\Validate;
 class ProfileController extends Controller
 {
     public $user_model;
+    public $data;
     private $rule_avatar = [
         'avatar' => ['image' => ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'], 'maxSize' => 2048],
     ];
@@ -16,21 +17,63 @@ class ProfileController extends Controller
         'new_password' => ['required' => true, 'min' => 6, 'max' => 20, 'notMatches' => 'old_password'],
         'confirm_password' => ['required' => true, 'matches' => 'new_password'],
     ];
+    private $rule_profile = [
+        'fullname' => ['required' => true, 'min' => 5, 'max' => 50],
+        'username' => ['required' => true, 'min' => 5, 'max' => 20],
+    ];
     public function __construct()
     {
         $this->user_model = $this->model('UserModel');
+        $this->data = $this->authenticateJWT();
     }
     public function index()
     {
-        $data = $this->authenticateJWT();
+        $this->render('profile', $this->data);
+    }
+    public function updateProfile() {
+        $this->render('update-profile', $this->data);
+    }
+    public function updateInformation() {
+        $user_data = $this->data['data'];
 
-        $this->render('profile', $data);
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $fullName = trim($_POST['fullname']);
+            $username = trim($_POST['username']);
+
+            $validation = new Validate();
+
+            $validation->check($_POST, $this->rule_profile);
+
+            if ($validation->getErrors()) {
+                $data = [
+                    'data' => $this->data['data'],
+                    'errors' => $validation->getErrors()
+                ];
+            }else {
+                $status = $this->user_model
+                    ->updateUserById($user_data->user_id, ['name' => $fullName, 'username' => $username]);
+
+                if($status) {
+                    $data = $this->user_model->getUserByEmail($user_data->user_email);
+
+                    $token = $this->createJWT($data);
+
+                    setcookie("token", $token, time() + 3600, "/", "", true, true);
+                    header('Location: ' . _WEB_ROOT . '/profile');
+                    exit();
+                }else {
+                    $data = $this->getDataMessage("Có lỗi xảy ra! Vui lòng thử lại sau");
+                }
+            }
+        }else {
+            $data = $this->getDataMessage("Có lỗi khi cập nhật thông tin!");
+        }
+
+        $this->render('update-profile', $data);
     }
 
-    public function updateAvatar()
-    {
-        $data = $this->authenticateJWT();
-        $user_data = $data['data'];
+    public function updateAvatar() {
+        $user_data = $this->data['data'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
@@ -45,11 +88,9 @@ class ProfileController extends Controller
 
                 if ($validation->getErrors()) {
                     $data = [
-                        'data' => $data['data'],
+                        'data' => $this->data['data'],
                         'errors' => $validation->getErrors()
                     ];
-
-                    $this->render('profile', $data);
                 } else {
                     global $bucket;
 
@@ -82,24 +123,19 @@ class ProfileController extends Controller
                         header('Location: ' . _WEB_ROOT . '/profile');
                         exit();
                     } else {
-                        $this->render('profile', $data);
+                        $data = $this->getDataMessage("Có lỗi xảy ra! Vui lòng thử lại sau");
                     }
                 }
             } else {
-                $data = [
-                    'data' => $data['data'],
-                    'message' => "Có lỗi khi tải ảnh lên!"
-                ];
-
-                $this->render('profile', $data);
+                $data = $this->getDataMessage("Có lỗi khi tải ảnh lên!");
             }
+
+            $this->render('profile', $data);
         }
     }
 
-    public function changePassword()
-    {
-        $data = $this->authenticateJWT();
-        $user_data = $data['data'];
+    public function changePassword() {
+        $user_data = $this->data['data'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $password = trim($_POST['new_password']);
@@ -110,36 +146,30 @@ class ProfileController extends Controller
 
             if ($validation->getErrors()) {
                 $data = [
-                    'data' => $data['data'],
+                    'data' => $this->data['data'],
                     'errors' => $validation->getErrors()
                 ];
-
-                $this->render('profile', $data);
             }else {
                 $status = $this->user_model
                     ->updateUserById($user_data->user_id, ['password' => hash('sha256', $password)]);
 
                 if($status) {
-                    $data = [
-                        'data' => $data['data'],
-                        'message' => "Cập nhật mật khẩu thành công!"
-                    ];
+                    $data = $this->getDataMessage("Cập nhật mật khẩu thành công!");
                 }else {
-                    $data = [
-                        'data' => $data['data'],
-                        'message' => "Có lỗi xảy ra! Vui lòng thử lại sau"
-                    ];
+                    $data = $this->getDataMessage("Có lỗi xảy ra! Vui lòng thử lại sau");
                 }
-
-                $this->render('profile', $data);
             }
         }else {
-            $data = [
-                'data' => $data['data'],
-                'message' => "Có lỗi khi tải ảnh lên!"
-            ];
-
-            $this->render('profile', $data);
+            $data = $this->getDataMessage("Có lỗi khi cập nhật mật khẩu!");
         }
+        
+        $this->render('profile', $data);
+    }
+
+    private function getDataMessage($message) {
+        return [
+            'data' => $this->data['data'],
+            'message' => $message
+        ];
     }
 }

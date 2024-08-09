@@ -165,7 +165,7 @@
                                         <?php echo $data->user_name; ?></p>
                                     <p><span class="label font-weight-bold">Email:</span>
                                         <?php echo $data->user_email; ?></p>
-                                    <button class="primary-btn">Cập nhật thông tin</button>
+                                    <a class="primary-btn" href="<?php echo _WEB_ROOT . '/profile/update-profile'; ?>">Cập nhật thông tin</a>
                                 </div>
                             </div>
                         </div>
@@ -290,11 +290,3 @@
 
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <script src="/mvc_mefoodblog/public/js/quill.js"></script>
-
-<?php if(isset($message)): ?>
-    <script>
-        $(document).ready(function() {
-            $('#errorModal').modal('show');
-        });
-    </script>
-<?php endif; ?>
