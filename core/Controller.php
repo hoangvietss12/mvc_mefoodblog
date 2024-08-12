@@ -19,10 +19,11 @@ class Controller{
     public function render($view, $data=[]) {
         extract($data);
         
-        if(file_exists(_DIR_ROOT.'/views/'.$view.'.php') || file_exists(_DIR_ROOT.'/admin/pages/'.$view.'.php')) {
-            $page = _DIR_ROOT.'/views/'.$view.'.php' ?? _DIR_ROOT.'/admin/pages/'.$view.'.php';
-            require_once $page;
-        }
+        $page = file_exists(_DIR_ROOT.'/views/'.$view.'.php') 
+            ? _DIR_ROOT.'/views/'.$view.'.php' 
+            : _DIR_ROOT.'/views/admin/'.$view.'.php';
+
+        require_once $page;        
     }
 
     public function createJWT($data) {
