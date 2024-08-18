@@ -3169,3 +3169,16 @@ ol {
     margin-top: 50px;
     margin-bottom: 20px;
 }
+
+/* Thumbnail preview */
+.thumbnail__preview {
+    border: 1px solid #ddd;
+    padding: 5px;
+    max-width: 300px;
+    margin-top: 10px;
+}
+#imagePreview {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}

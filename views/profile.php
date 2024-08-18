@@ -272,6 +272,16 @@
                             <input type="text" placeholder="Hashtag (nếu có)..." name="hashtag" id="hashtag"
                                 value="<?php echo $hashtag ?? ''; ?>">
                         </div>
+                        <div class="form-group">
+                            <label for="thumbnail" class="d-block">Thumbnail:</label>
+                            <input type="file" class="" id="thumbnail" name="thumbnail">
+                            <span class="text-danger">
+                                <?php echo $errors['thumbnail'] ?? ''; ?>
+                            </span>
+                            <div class="thumbnail__preview mt-3">
+                                <img id="imagePreview" src="" alt="Thumbnail Preview" style="display: none; max-width: 100%; height: auto;">
+                            </div>
+                        </div>
                         <button type="submit" class="site-btn">TẠO BÀI VIẾT</button>
                     </form>
                 </div>

@@ -89,4 +89,12 @@
         $('#avatarForm').submit();
     });
 
+    // Preview thumbnail image
+    $('#thumbnail').change(function(event) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#imagePreview').attr('src', e.target.result).show();
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
 })(jQuery);
