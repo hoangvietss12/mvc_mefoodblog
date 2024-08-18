@@ -22,6 +22,10 @@ $web_root = $web_root.$folder;
 
 define('_WEB_ROOT', $web_root);
 
+$web_root_admin = str_replace('/public', '', $web_root);
+
+define('_WEB_ROOT_ADMIN', $web_root_admin);
+
 $dotenv = Dotenv::createImmutable(_DIR_ROOT);
 $dotenv->load();
 

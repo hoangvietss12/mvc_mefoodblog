@@ -7,7 +7,7 @@ trait QueryBuilder {
     public $select = '*';
     public $limit = '';
     public $orderBy = '';
-    public $innerJoin = '';
+    public $join = '';
     public function table($table) {
         $this->table = $table;
         return $this;
@@ -38,7 +38,7 @@ trait QueryBuilder {
     }
 
     public function get() {
-        $sql = "SELECT $this->select FROM $this->table $this->where $this->limit";
+        $sql = "SELECT $this->select FROM $this->table $this->join $this->where $this->limit";
 
         $query = $this->query($sql);
 
@@ -83,7 +83,7 @@ trait QueryBuilder {
             $this->operator = ' AND ';
         }
 
-        $this->where.="$this->operator $field LIKE '$value'";
+        $this->where.="$this->operator $field LIKE '%$value%'";
 
         return $this;
     }
@@ -103,7 +103,12 @@ trait QueryBuilder {
 
     // join 
     public function join($table, $relationship) {
-        $this->innerJoin.='INNER JOIN' .$table. ' ON ' .$relationship. ' ';
+        $this->join.='INNER JOIN ' .$table. ' ON ' .$relationship. ' ';
+        return $this;
+    }
+
+    public function leftJoin($table, $relationship) {
+        $this->join.='LEFT JOIN ' .$table. ' ON ' .$relationship. ' ';
         return $this;
     }
 
